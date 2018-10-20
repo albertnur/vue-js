@@ -11,25 +11,28 @@ export default {
   data() {
     return {
       characters: [],
-      index:0
-    }
+      index: 0
+    };
   },
   methods: {
-    getCharacters(){
-      axios.get("https://swapi.co/api/people/" + ++this.index)
-      .then((response) =>{
-        // handle success
-        this.characters.push(response.data);
+    getCharacters() {
+      axios
+        .get("https://swapi.co/api/people/" + ++this.index)
+        .then(response => {
+          // handle success
+          this.characters.push(response.data);
 
-        console.log(this.characters);
-      })
-      .catch((error) => {
-        // handle error
-        console.log(error);
-      })
-      .then(() => {
-        // always executed
-      });
+          this.$emit("characters-added", this.characters);
+
+          console.log(this.characters);
+        })
+        .catch(error => {
+          // handle error
+          console.log(error);
+        })
+        .then(() => {
+          // always executed
+        });
     }
   }
 };
